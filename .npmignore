@@ -7,5 +7,6 @@ package-lock.json
 tsconfig.json
 tslint.json
 .vscode/
+reference/
 src/
 .travis.yml
