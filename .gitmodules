@@ -1,0 +1,6 @@
+[submodule "reference/PicGo-Core-Doc"]
+	path = reference/PicGo-Core-Doc
+	url = https://github.com/PicGo/PicGo-Core-Doc.git
+[submodule "reference/Cloudflare-Imgbed-Doc"]
+	path = reference/Cloudflare-Imgbed-Doc
+	url = https://github.com/MarSeventh/CloudFlare-ImgBed-Docs.git
