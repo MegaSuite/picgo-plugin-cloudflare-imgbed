@@ -1,0 +1,11 @@
+.claude/
+node_modules/
+AGENTS.md
+yarn-error.log
+temp.js
+package-lock.json
+tsconfig.json
+tslint.json
+.vscode/
+src/
+.travis.yml
