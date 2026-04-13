@@ -1,0 +1,1 @@
+D:/Develop/picgo-plugin-cloudflare-imgbed/AGENTS.md

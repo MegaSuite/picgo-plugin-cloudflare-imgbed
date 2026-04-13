@@ -1,6 +1,6 @@
 {
   "name": "picgo-plugin-cloudflare-imgbed",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Third Party PicGo Uploader For MarSeventh/CloudFlare-ImgBed",
   "main": "dist/index.js",
   "publishConfig": {

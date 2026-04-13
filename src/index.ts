@@ -4,8 +4,10 @@ import FormData from 'form-data'
 interface Config {
   baseUrl: string
   authCode?: string
-  path?: string
+  uploadFolder?: string
   uploadNameType?: string
+  uploadChannel?: string
+  channelName?: string
 }
 
 function formatTimestamp (): string {
@@ -34,8 +36,12 @@ export = (ctx: IPicGo) => {
         const baseUrl = config.baseUrl.replace(/\/$/, '')
         const params = new URLSearchParams()
         if (config.authCode) params.set('authCode', config.authCode)
-        if (config.path) params.set('uploadFolder', config.path)
+        if (config.uploadFolder) params.set('uploadFolder', config.uploadFolder)
         params.set('uploadNameType', config.uploadNameType ?? 'origin')
+        if (config.uploadChannel && config.uploadChannel !== 'server-default') {
+          params.set('uploadChannel', config.uploadChannel)
+          if (config.channelName) params.set('channelName', config.channelName)
+        }
         const query = params.toString()
         const uploadUrl = `${baseUrl}/upload${query ? '?' + query : ''}`
 
@@ -95,21 +101,39 @@ export = (ctx: IPicGo) => {
             alias: 'Auth Code'
           },
           {
-            name: 'path',
+            name: 'uploadFolder',
             type: 'input',
-            default: (savedConfig as any).path ?? '',
+            default: (savedConfig as any).uploadFolder ?? '',
             required: false,
-            message: 'Path, e.g. images, blog/images (leave empty for root)',
-            alias: 'Upload Path'
+            message: 'Upload folder, e.g. images, blog/images (leave empty for root)',
+            alias: 'Upload Folder'
           },
           {
             name: 'uploadNameType',
             type: 'list',
             default: (savedConfig as any).uploadNameType ?? 'origin',
             required: false,
-            message: 'Upload Name Type',
+            message: 'How backend renames image. origin=keep name (plugin default), default=add index prefix, short=short link, index=index only. Check README in https://github.com/MegaSuite/picgo-plugin-cloudflare-imgbed for more details. ',
             choices: ['origin', 'default', 'index', 'short'],
             alias: 'Upload Name Type'
+          },
+          {
+            name: 'uploadChannel',
+            type: 'list',
+            default: (savedConfig as any).uploadChannel ?? 'server-default',
+            required: false,
+            message: 'Upload storage channel (server-default uses server config)',
+            choices: ['server-default', 'telegram', 'cfr2', 's3', 'discord', 'huggingface'],
+            alias: 'Upload Channel'
+          },
+          {
+            name: 'channelName',
+            type: 'input',
+            default: (savedConfig as any).channelName ?? '',
+            required: false,
+            message: 'Specific channel name (used when uploadChannel is not server-default)',
+            alias: 'Channel Name',
+            when: (answers: any) => answers.uploadChannel && answers.uploadChannel !== 'server-default'
           }
         ]
       }

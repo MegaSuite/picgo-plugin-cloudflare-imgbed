@@ -1,6 +1,8 @@
 .claude/
+.gitmodules
 node_modules/
 AGENTS.md
+CLAUDE.md
 yarn-error.log
 temp.js
 package-lock.json
